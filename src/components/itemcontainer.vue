@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
     name:"itemcontainer",
     data(){
@@ -19,7 +20,17 @@ export default {
 
         }
     },
-    props:['fatherComponent']
+    props:['fatherComponent'],
+    computed:mapState([
+        'level'//第几周
+    ]),
+    created(){
+        //初始化信息
+        if(this.fatherComponent == 'home'){
+            this.initializeData();
+            document.body.style.background = 'url(./static.img/1-1.jpg)'
+        }
+    }
 }
 </script>
 
