@@ -2,7 +2,7 @@
   <section>
       <header class="top_tips">
           <span class="num_tip" v-if="fatherComponent=='home'">{{level}}</span>
-          <span class="num_tip" v-if="fatherComponent=='item'"></span>
+          <span class="num_tip" v-if="fatherComponent=='item'">题目{{itemNum}}</span>
       </header>
       <div v-if="fatherComponent == 'home'">
           <div class="home_logo item_container_style"></div>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState,mapActions} from 'vuex'
 export default {
     name:"itemcontainer",
     data(){
@@ -21,15 +21,21 @@ export default {
         }
     },
     props:['fatherComponent'],
-    computed:mapState([
+    computed:mapState([//itemNum(){return this.$store.state.itemNum}
+        'itemNum',//第几题
         'level'//第几周
     ]),
     created(){
         //初始化信息
         if(this.fatherComponent == 'home'){
             this.initializeData();
-            document.body.style.background = 'url(./static.img/1-1.jpg)'
+            // document.body.style.backgroundImage = 'url(../assets/img/1-1.jpg)';
         }
+    },
+    methods:{
+        ...mapActions([
+            'initializeData'
+        ])
     }
 }
 </script>
@@ -84,5 +90,8 @@ export default {
         left: 50%;
         margin-left: -2.4rem;
         background-repeat: no-repeat;
-	}
+    }
+    .start{
+        background-image:url(../assets/img/1-4.png)
+    }
 </style>
